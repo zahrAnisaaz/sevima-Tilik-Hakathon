@@ -20,10 +20,19 @@ const LEVELS = {
   numerasi: { 1: 'Pemula', 2: 'Angka 1-9', 3: 'Angka 10-99', 4: 'Pengurangan', 5: 'Pembagian' }
 };
 
+const TEACHER_PASSWORD = (process.env.TEACHER_PASSWORD || '').trim();
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+app.post('/api/login', (req, res) => {
+  const { password } = req.body;
+  if (password && password === TEACHER_PASSWORD) {
+    return res.json({ ok: true, token: 'tilik-session-' + Date.now() });
+  }
+  res.status(401).json({ ok: false, error: 'Password salah' });
+});
 
 app.post('/api/students', async (req, res) => {
   const { name } = req.body;
