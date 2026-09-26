@@ -25,6 +25,12 @@
   .bar-fill { background: #16a34a; height: 100%; }
   .stat { font-size: 28px; font-weight: 700; color: #1e3a8a; }
   .muted { color: #6b7280; font-size: 13px; }
+  @media (max-width: 600px) {
+    body { padding: 16px 12px; }
+    .row { flex-direction: column; }
+    .row select, .row input, .row button { width: 100%; }
+    .bar-label { width: 70px; font-size: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -35,6 +41,8 @@
     <h2>Tambah siswa</h2>
     <div class="row">
       <input id="studentName" placeholder="Nama siswa" />
+      <label for="studentName" style="display:block; margin-bottom:4px; font-size:13px; color:#4b5563">Nama siswa</label>
+<input id="studentName" placeholder="Nama siswa" aria-label="Nama siswa" />
       <button onclick="addStudent()">Tambah</button>
     </div>
   </section>
@@ -56,7 +64,7 @@
       </select>
       <button onclick="saveAssessment()">Simpan</button>
     </div>
-    <p class="muted" id="assessMsg"></p>
+    <p class="muted" id="assessMsg" aria-live="polite" role="status"></p>
   </section>
 
   <section>
