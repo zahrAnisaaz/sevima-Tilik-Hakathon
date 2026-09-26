@@ -1,29 +1,3 @@
-async function doLogin() {
-  const password = document.getElementById('loginPassword').value;
-  const res = await fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password })
-  });
-  const data = await res.json();
-  if (data.ok) {
-    sessionStorage.setItem('tilik_auth', data.token);
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appContent').style.display = 'block';
-    loadSummary();
-  } else {
-    document.getElementById('loginMsg').textContent = data.error;
-  }
-}
-
-if (sessionStorage.getItem('tilik_auth')) {
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appContent').style.display = 'block';
-    loadSummary();
-  });
-}
-
 async function loadSummary() {
   const res = await fetch('/api/summary');
   const data = await res.json();
@@ -71,4 +45,24 @@ async function addStudent() {
   loadSummary();
 }
 
-async function
+async function saveAssessment() {
+  const student_id = document.getElementById('assessStudent').value;
+  const subject = document.getElementById('assessSubject').value;
+  const level = Number(document.getElementById('assessLevel').value);
+  const msg = document.getElementById('assessMsg');
+  if (!student_id) { msg.textContent = 'Tambah siswa dulu.'; return; }
+
+  const res = await fetch('/api/assessments', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ student_id, subject, level })
+  });
+  if (res.ok) {
+    msg.textContent = 'Tersimpan.';
+    loadSummary();
+  } else {
+    msg.textContent = 'Gagal menyimpan.';
+  }
+}
+
+loadSummary();
