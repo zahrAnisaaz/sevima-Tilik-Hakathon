@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tilik — Ajar Sesuai Tingkat</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px; background: #f7f8fb; color: #1f2937; }
+  h1 { color: #1e3a8a; margin-bottom: 4px; }
+  .subtitle { color: #6b7280; margin-top: 0; margin-bottom: 24px; }
+  section { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  h2 { font-size: 18px; margin-top: 0; }
+  input, select, button { font-size: 15px; padding: 8px 12px; border-radius: 8px; border: 1px solid #d1d5db; }
+  input { width: 100%; margin-bottom: 8px; }
+  button { background: #1e3a8a; color: white; border: none; cursor: pointer; }
+  button:hover { background: #1e40af; }
+  .row { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .row select { flex: 1; min-width: 120px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+  .bar-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .bar-label { width: 90px; font-size: 13px; color: #4b5563; }
+  .bar-track { flex: 1; background: #e5e7eb; border-radius: 6px; height: 18px; overflow: hidden; }
+  .bar-fill { background: #16a34a; height: 100%; }
+  .stat { font-size: 28px; font-weight: 700; color: #1e3a8a; }
+  .muted { color: #6b7280; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h1>🌱 Tilik</h1>
+  <p class="subtitle">Diagnostik literasi & numerasi — mengelompokkan siswa sesuai tingkat kemampuan (SDG 4.1)</p>
+
+  <section>
+    <h2>Tambah siswa</h2>
+    <div class="row">
+      <input id="studentName" placeholder="Nama siswa" />
+      <button onclick="addStudent()">Tambah</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Catat hasil tes diagnostik</h2>
+    <div class="row">
+      <select id="assessStudent"></select>
+      <select id="assessSubject">
+        <option value="literasi">Literasi</option>
+        <option value="numerasi">Numerasi</option>
+      </select>
+      <select id="assessLevel">
+        <option value="1">Tingkat 1</option>
+        <option value="2">Tingkat 2</option>
+        <option value="3">Tingkat 3</option>
+        <option value="4">Tingkat 4</option>
+        <option value="5">Tingkat 5 (target)</option>
+      </select>
+      <button onclick="saveAssessment()">Simpan</button>
+    </div>
+    <p class="muted" id="assessMsg"></p>
+  </section>
+
+  <section>
+    <h2>Ringkasan Literasi</h2>
+    <p class="stat" id="litPct">-</p>
+    <p class="muted">siswa mencapai tingkat target (Tingkat 5)</p>
+    <div id="litBars"></div>
+  </section>
+
+  <section>
+    <h2>Ringkasan Numerasi</h2>
+    <p class="stat" id="numPct">-</p>
+    <p class="muted">siswa mencapai tingkat target (Tingkat 5)</p>
+    <div id="numBars"></div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
